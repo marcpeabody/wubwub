@@ -1,0 +1,13 @@
+# hello-seesaw
+
+Playing around with seesaw and overtone together.
+
+## Usage
+
+Assumes Supercollider is installed with scsynth in your path
+"lein deps" to install dependencies
+"lein run -m hello-seesaw.core" to run this project
+
+## License
+
+Distributed under the Eclipse Public License, the same as Clojure.
