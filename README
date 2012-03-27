@@ -1,4 +1,4 @@
-# hello-seesaw
+# wubwub
 
 Playing around with seesaw and overtone together.
 
@@ -6,7 +6,7 @@ Playing around with seesaw and overtone together.
 
 Assumes Supercollider is installed with scsynth in your path
 "lein deps" to install dependencies
-"lein run -m hello-seesaw.core" to run this project
+"lein run -m wubwub.core" to run this project
 
 ## License
 
