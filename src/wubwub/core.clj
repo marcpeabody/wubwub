@@ -25,18 +25,20 @@
 (def woo-button (see/button :text "Woo"))
 (see/listen woo-button :action (fn [e]
   (let [temp-val @note-val]
-    (see/config! woo-button :enabled? false)
+    (.start (Thread. (fn []
+      (see/config! woo-button :enabled? false)
 
-    ;;woo maxes out the note pitch
-    (sb/notify note-val 70)
+      ;;woo maxes out the note pitch
+      (sb/notify note-val 70)
 
-    ;;wait one second
-    (Thread/sleep 1000)
+      ;;wait one second
+      (Thread/sleep 1000)
 
-    ;;set the note back to what it was
-    (sb/notify note-val temp-val)
+      ;;set the note back to what it was
+      (sb/notify note-val temp-val)
 
-    (see/config! woo-button :enabled? true)
+      (see/config! woo-button :enabled? true)
+    )))
   )
 ))
 

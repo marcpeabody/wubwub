@@ -8,7 +8,6 @@
     (sb/bind slide model-val)
     (sb/bind model-val slide)
     (sb/subscribe model-val (cb model-val))
-    (sb/subscribe model-val (fn [e] (println "triggered")))
     (see/horizontal-panel :items [slide slide-text])
   )
 )
