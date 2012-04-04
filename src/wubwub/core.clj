@@ -22,7 +22,7 @@
                                    "Start" start-dubstep))
 
 (def woo-button (see/button :text "Woo"))
-(see/listen woo-button :action (fn [e]
+(defn woo! [e]
   (let [temp-val @note-val]
     (.start (Thread. (fn []
       (see/config! woo-button :enabled? false)
@@ -39,7 +39,9 @@
       (see/config! woo-button :enabled? true)
     )))
   )
-))
+  )
+
+(see/listen woo-button :action woo!)
 
 (def kb (midi-in "Oxygen"))
 
@@ -65,7 +67,20 @@
 )))
 
 
+(def server (osc-server 44100 "wubs"))
+
+(defn configure-osc []
+  ;; for debugging
+  (osc-listen server (fn [msg] (println msg)) :debug)
+  ;; handle wobble controls
+  (doseq [i (range 1 11)]
+    (osc-handle server (str "/2/push" i) (fn [msg] (sb/notify wobble-val i))))
+  ;; listen for woo!
+  (osc-handle server "/2/push16" (fn [msg] (if (< 0 (first (:args msg))) (woo! msg)))))
+
 (defn -main [& args]
+  (zero-conf-on)
+  (configure-osc)
   (see/invoke-later
     (start-dubstep)
     (display (see/border-panel
